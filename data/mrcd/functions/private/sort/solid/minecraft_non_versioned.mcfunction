@@ -31,4 +31,4 @@ execute if entity @s[tag=!mrcd_block_collision_done] if block ~ ~ ~ #slabs run f
 execute if entity @s[tag=!mrcd_block_collision_done] if block ~ ~ ~ chain run function mrcd:private/types/chain
 
 # 1.19 (+ Walls, Slabs, Stairs, Flower Pots)
-execute if entity @s[tag=!mrcd_block_collision_done] if block ~ ~ ~ sculk_shrieker run function mrcd:private/types/slab/bottom
+# execute if entity @s[tag=!mrcd_block_collision_done] if block ~ ~ ~ sculk_shrieker run function mrcd:private/types/slab/bottom

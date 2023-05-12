@@ -1,4 +1,4 @@
-# === Do something at the ray before ticking ===
+# === Do something before ticking ===
 # trace ray path
 # execute if entity @s[tag=test_mark] run particle mycelium ~ ~ ~ 0 0 0 0 1 force
 # execute if entity @s[tag=mrcd_bullet] run particle wax_on ~ ~ ~ 0 0 0 0 1 force
@@ -9,7 +9,7 @@
 # === Ray tick ===
 function mrcd:ray_tick
 
-# === Do something at the ray after ticking ===
+# === Do something after ticking ===
 # trace ray path
 execute if entity @s[tag=instnat] at @s run particle end_rod ~ ~ ~ 0 0 0 0 1 force
 

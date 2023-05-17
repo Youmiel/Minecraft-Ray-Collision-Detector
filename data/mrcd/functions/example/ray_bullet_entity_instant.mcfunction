@@ -5,7 +5,7 @@
 
 # The maximum length of ray is 5 b(/gt, as the instant AEC only lasts for 1 gametick, the acutal length is 5)
 
-execute at @s anchored eyes run summon area_effect_cloud ^ ^ ^10 {Tags:["test_mark","init","mrcd_bullet","mrcd_entity","instnat"]}
+execute at @s anchored eyes run summon area_effect_cloud ^ ^ ^5 {Tags:["test_mark","init","mrcd_bullet","mrcd_entity","instnat"]}
 
 execute as @e[tag=init,limit=1] store result score @s mrcd_x0 run data get entity @s Pos[0] 1000
 execute as @e[tag=init,limit=1] store result score @s mrcd_y0 run data get entity @s Pos[1] 1000

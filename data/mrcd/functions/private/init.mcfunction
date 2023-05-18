@@ -25,3 +25,5 @@ scoreboard players set #n116129781 mrcd_system 116129781
 scoreboard players set #const_2 mrcd_system 2
 scoreboard players set #const_1000 mrcd_system 1000
 scoreboard players set #const_minus_1 mrcd_system -1
+
+scoreboard players set #version mrcd_system 22

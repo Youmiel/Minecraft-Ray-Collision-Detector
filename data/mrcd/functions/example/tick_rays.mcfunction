@@ -12,6 +12,7 @@ function mrcd:ray_tick
 # === Do something after ticking ===
 # trace ray path
 execute if entity @s[tag=instant] at @s run particle end_rod ~ ~ ~ 0 0 0 0 1 force
+execute if entity @s[tag=instant_marker] at @s run particle end_rod ~ ~ ~ 0 0 0 0 1 force
 
 # Check entity hit
 effect give @e[tag=mrcd_target_entity] glowing 1 0 true
@@ -30,6 +31,9 @@ execute if entity @s[tag=mrcd_touch_entity] at @s run particle small_flame ~ ~ ~
 # Once hited remove
 kill @s[tag=mrcd_touch_edge]
 kill @s[tag=mrcd_touch_entity]
+
+# remove instant marker
+kill @s[tag=instant_marker] 
 
 # unknown reason but it works
 tag @s remove test_mark 

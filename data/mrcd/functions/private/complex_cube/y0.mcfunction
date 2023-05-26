@@ -5,7 +5,7 @@
 
 scoreboard players operation #target_y mrcd_system = #box_y0 mrcd_system
 function mrcd:private/calculate/y
-execute if score #target_x mrcd_system >= #box_x0 mrcd_system if score #target_x mrcd_system <= #box_x1 mrcd_system if score #target_z mrcd_system >= #box_z0 mrcd_system if score #target_z mrcd_system <= #box_z1 mrcd_system run summon area_effect_cloud ~ ~ ~ {Duration:999,Tags:["mrcd_touch_mark","mrcd_touch_cube_edge","mrcd_touch_mark_new","mrcd_touch_y_minus"]}
+execute if score #target_x mrcd_system >= #box_x0 mrcd_system if score #target_x mrcd_system <= #box_x1 mrcd_system if score #target_z mrcd_system >= #box_z0 mrcd_system if score #target_z mrcd_system <= #box_z1 mrcd_system run summon marker ~ ~ ~ {Tags:["mrcd_touch_mark","mrcd_touch_cube_edge","mrcd_touch_mark_new","mrcd_touch_y_minus"]}
 
 execute as @e[tag=mrcd_touch_mark_new] run function mrcd:private/complex_cube/move
 tag @e[tag=mrcd_touch_mark_new] remove mrcd_touch_mark_new

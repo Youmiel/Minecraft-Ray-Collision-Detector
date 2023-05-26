@@ -1,7 +1,7 @@
 # Summon finish point marker at block edge, collision or total
-summon area_effect_cloud ~ ~ ~ {Tags:["mrcd_block_end","mrcd_ignore"]}
-execute if score #total_before_collision mrcd_system matches 1 as @e[type=area_effect_cloud,tag=mrcd_block_end,limit=1] run function mrcd:private/recurse/entity_collision/marker/total
-execute if score #total_before_collision mrcd_system matches 0 as @e[type=area_effect_cloud,tag=mrcd_block_end,limit=1] run function mrcd:private/recurse/entity_collision/marker/collision
+summon marker ~ ~ ~ {Tags:["mrcd_block_end","mrcd_ignore"]}
+execute if score #total_before_collision mrcd_system matches 1 as @e[type=marker,tag=mrcd_block_end,limit=1] run function mrcd:private/recurse/entity_collision/marker/total
+execute if score #total_before_collision mrcd_system matches 0 as @e[type=marker,tag=mrcd_block_end,limit=1] run function mrcd:private/recurse/entity_collision/marker/collision
 
 # Tp @s to current block starting position
 scoreboard players operation #temp_x mrcd_system = #block_x mrcd_system
@@ -25,4 +25,4 @@ execute if entity @e[tag=mrcd_target_entity,limit=1] if entity @s[tag=!mrcd_enti
 execute if entity @e[tag=mrcd_target_entity,limit=1] run tag @s add mrcd_touch_entity
 
 # Clean
-kill @e[type=area_effect_cloud,tag=mrcd_block_end,limit=1]
+kill @e[type=marker,tag=mrcd_block_end,limit=1]

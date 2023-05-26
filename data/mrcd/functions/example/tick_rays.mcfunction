@@ -28,6 +28,8 @@ effect give @e[tag=mrcd_target_entity] glowing 1 0 true
 execute if entity @s[tag=mrcd_touch_edge] at @s run particle small_flame ~ ~ ~ 0 0 0 0 1 force
 execute if entity @s[tag=mrcd_touch_entity] at @s run particle small_flame ~ ~ ~ 0 0 0 0 1 force
 
+execute store result score aecCount test if entity @e[tag=mrcd_touch_y_plus, tag=mrcd_touch_edge]
+
 # Once hited remove
 kill @s[tag=mrcd_touch_edge]
 kill @s[tag=mrcd_touch_entity]

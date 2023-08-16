@@ -8,11 +8,12 @@ Minecraft Ray Collision Detector is a super precise raycast system in vanilla mi
 
 Current datapack version: 2.7.1
 
-Supported minecraft version: 1.16, 1.17, 1.18, 1.19, 1.20
+Supported minecraft version: ~~1.16~~, ~~1.17~~, 1.18, ~~1.19~~, ~~1.20~~ (this fork only focuses on 1.18.2)
 
-# How to use
+## How to use
 
-## Basics
+### Basics
+
 1. **Set the motion vector:** You must first indicate how many milliblocks the ray entity (usually area_effect_cloud or marker) will travell in a *ray_tick*. To do so store the (x, y, z) components of the vector in the entity's scoreboards `mrcd_x0`, `mrcd_y0`, `mrcd_z0`.
 2. **Run a ray_tick:** Call `function mrcd:ray_tick` as the ray entity.
 3. **Detect block hit:** If the ray hits a block it will get the tags `mrcd_touch_edge` and `mrcd_touch_<direction>`, where `<direction>` indicates which face has been hit and is one of `x_plus`, `x_minus`, `y_plus`, `y_minus`, `z_plus`, `z_minus`.
@@ -20,25 +21,28 @@ Supported minecraft version: 1.16, 1.17, 1.18, 1.19, 1.20
 
 *Note: when calling `function mrcd:ray_tick` the ray first loses all previous output tags so once the calculations are done only the correct tags are left.*
 
-## Advanced ray behaviour
+### Advanced ray behaviour
+
 - **Pass any block a player can:** tag the ray with `mrcd_bullet`.
-- **Hit the first entity it finds:**: tag the ray with `mrcd_entity` and rotate it facing the motion direction. 
-    - If it thouches an entity, the ray will stop there and get the tag `mrcd_touch_entity`. The touched entity will be tagged `mrcd_target_entity`. 
+- **Hit the first entity it finds:**: tag the ray with `mrcd_entity` and rotate it facing the motion direction.
+    - If it thouches an entity, the ray will stop there and get the tag `mrcd_touch_entity`. The touched entity will be tagged `mrcd_target_entity`.
     - Note that some entities like player and projectiles are ignored by default. You can remove them by editing the entity types tag `#mrcd:ignore`.
 - **Hit the first specific entity or group of entities:** tag the ray with `mrcd_entity_targeted`, rotate it facing the motion direction** and tag the target/s with `mrcd_target`.
-    - If it thouches an entity, the ray will stop there and get the tag `mrcd_touch_entity`. The touched entity will be tagged `mrcd_target_entity`. Any non `mrcd_target` tagged entity will be ignored and the ray will pass through. 
+    - If it thouches an entity, the ray will stop there and get the tag `mrcd_touch_entity`. The touched entity will be tagged `mrcd_target_entity`. Any non `mrcd_target` tagged entity will be ignored and the ray will pass through.
     - This method can target any entity, even those that are in the `#mrcd:ignore` tag list. Also, you can tag an entity with `mrcd_ignore` to also be ignored.
-- **Hit multiple entities (don't stop after one found):** settup the ray as a `mrcd_entity` or `mrcd_entity_targeted`, add the tag `mrcd_entity_bullet` and rotate the  it facing the motion direction. 
+- **Hit multiple entities (don't stop after one found):** settup the ray as a `mrcd_entity` or `mrcd_entity_targeted`, add the tag `mrcd_entity_bullet` and rotate the  it facing the motion direction.
     - If it thouches an entity, the ray will continue but get the tag `mrcd_touch_entity`. The touched entity will be tagged `mrcd_target_entity`.
 
 In summary, tags can be combined following this strucuture: <block_handling>,<entity_handling1>,<entity_extra>
-* block_handling: none or mrcd_bullet
-* entity_handling: none or mrcd_entity or mrcd_entity_targeted
-* entity_extra: none or mrcd_entity_bullet
+
+- block_handling: none or mrcd_bullet
+- entity_handling: none or mrcd_entity or mrcd_entity_targeted
+- entity_extra: none or mrcd_entity_bullet
 
 *⚠️ Remember to remove the result tags when needed. For example: if we check for an entity hit we must remove the tag mrcd_target_entity after the hitting it, so the new cast doesn't think that entity was hit.*
 
-## Example
+### Example
+
 We use oriented relative coordinates and some math to eassily assing the speed (this case, 0.5 b/t). Since it lasts for 10 ticks (Duration), it will travel at max 5 blocks.
 
 ```mcfunction
@@ -68,6 +72,7 @@ tag @e[tag=init] remove init
 ```
 
 To see some more working examples, check the folder **example**. You simply need to run the function `mrcd:example/tick` each tick and give yourself the needed items with the function `mrcd:example/give`.
+
 ## Tags
 
 ### Reserved Tags
@@ -76,12 +81,12 @@ If a ray **hits a block**, it will have the tags `mrcd_touch_edge` and `mrcd_tou
 
 - `mrcd_touch_edge`: once a ray hits a block
 - `mrcd_touch_DIRECTION`: the `DIRECTION` will be one of the following:
-  - `x_plus`
-  - `x_minus`
-  - `y_plus`
-  - `y_minus`
-  - `z_plus`
-  - `z_minus`
+    - `x_plus`
+    - `x_minus`
+    - `y_plus`
+    - `y_minus`
+    - `z_plus`
+    - `z_minus`
 
 If a ray **hits an entity**, it will have the tag `mrcd_touch_entity` and the entity will have the tag `mrcd_target_entity`.
 
@@ -124,9 +129,11 @@ Sencondly, we find which block the marker is in, and determine which plane of th
 
 Finally, move the marker to #targetx,y,z!
 
-# Block Support
+## Block Support
+
 <details>
-  <summary>Block Support</summary>    
+  <summary>Block Support</summary>
+
 These blocks listed below are supported in is datapack. Please post an issue if you find some unsupported blocks and bugs. *All blocks are listed using the latest minecraft block tags*
 
 * any full block
@@ -273,9 +280,11 @@ These blocks listed below are supported in is datapack. Please post an issue if 
         * sticky piston and normal piston
     * #mrcd:lanterns
         * lantern and soul lantern
+
 </details>
 
-# Change Log
+## Change Log
+
 <details>
   <summary>Show</summary>
 
@@ -328,62 +337,63 @@ These blocks listed below are supported in is datapack. Please post an issue if 
         * Light block treated as air
     * Fixes
         * Dripstone offset wasn't considered (seems more presice than previous version)
- * v2.4
-   * Updates
-       * Added new type of ray `mrcd_entity_bullet`
- * v2.5
-   * Updates
-      * Merged the pull request of the new XOR algorithm (from 350 lines to 100) for offset blocks done by xwjcool123
-      * Added support for 1.16
-   * Changes
-      * 1.17 block checks are now skiped in older versions
-          * This means some changes on some block tags
-   * Fixes
-      * Weeping vines and Cave Vines were grouped with the same hitbox
-      * Blackstone pressure plate was missing
- * v2.6
-   * Updates
-      * Added support for 1.19
-   * Fixes
-      * 1.17 blocks not working
-      * Made ray entity detection hitbox precise
- * v2.6.1
-   * Fixes
-      * Made ray entity detection hitbox precise
- * v2.6.2
-   * Updates
-      * Added the possibility to use the `mrcd_ignore` tag to force ignore entities
-      * Improved example to show how to properly cast instant rays 
-   * Changes
-      * Renamed some internal tags to be more descriptive
-      * Entity hit detection redone, so it's even preciser (the check is done in steps of 0.33 blocks) 
-      * Optimitzations
-          * If no entit hitbox in block, don't do entity calculations
-          * If you hit entity, you don't need to calculate block stuff (`mrcd_entity` and `mrcd_entity_targeted`)
-   * Fixes
-      * Ray should not target itself
-      * Ray sometimes getting inside complex block when the ray was comming from -xyz (collision not working)
-      * mrcd_entity and mrcd_entity_targeted could tag more than one entity when not being a mrcd_entity_bullet
- * v2.6.3
-   * Updates
-      * Revised and redone a bunch of code. This optimizations plus the 2.6.2 changes mean:
-           * calling `ray_tick` runs between 23..52% less commands depending on the ray type and distance traveled. This is because for each block check iteration:
-             * ~26% less commands are used when the ray targets full blocks (air)
-             * ~45% less commands are used when the ray targets non full blocks (trapdoors, slabs, bells, ...)
-             * ~47% less commands are used when the ray targets both blocks and entities
-   * Fixes
-      * Ray not being calculated properly when going through air corners
-      * Ray going moving towards negative x and/or y and/or y with long "motion" sometimes iterated forever (caused by impressions)
-      * Hanging roots, Lectern, Bamboo[leaves:large], Baners on wall not calc ok
-      * Missing sea pickle, composter
- * v2.7
-   * Updates
-      * Added support for 1.20
-   * Changes
-      * Default recursion limit is 256 (can be changed in the `ini.mcfunction` file)
-   * Fixes
-      * Fixed a bug where the ray would endlessly recurse, freezing the game. This would happen when the ray was passing through the corner of a block hitbox.
- * v2.7.1
-   * Updates
-      * Better entity hitbox hit precision
+* v2.4
+    * Updates
+        * Added new type of ray `mrcd_entity_bullet`
+* v2.5
+    * Updates
+        * Merged the pull request of the new XOR algorithm (from 350 lines to 100) for offset blocks done by xwjcool123
+        * Added support for 1.16
+    * Changes
+        * 1.17 block checks are now skiped in older versions
+            * This means some changes on some block tags
+    * Fixes
+        * Weeping vines and Cave Vines were grouped with the same hitbox
+        * Blackstone pressure plate was missing
+* v2.6
+    * Updates
+        * Added support for 1.19
+    * Fixes
+        * 1.17 blocks not working
+        * Made ray entity detection hitbox precise
+* v2.6.1
+    * Fixes
+        * Made ray entity detection hitbox precise
+* v2.6.2
+    * Updates
+        * Added the possibility to use the `mrcd_ignore` tag to force ignore entities
+        * Improved example to show how to properly cast instant rays
+    * Changes
+        * Renamed some internal tags to be more descriptive
+        * Entity hit detection redone, so it's even preciser (the check is done in steps of 0.33 blocks)
+        * Optimitzations
+            * If no entit hitbox in block, don't do entity calculations
+            * If you hit entity, you don't need to calculate block stuff (`mrcd_entity` and `mrcd_entity_targeted`)
+    * Fixes
+        * Ray should not target itself
+        * Ray sometimes getting inside complex block when the ray was comming from -xyz (collision not working)
+        * mrcd_entity and mrcd_entity_targeted could tag more than one entity when not being a mrcd_entity_bullet
+* v2.6.3
+    * Updates
+        * Revised and redone a bunch of code. This optimizations plus the 2.6.2 changes mean:
+            * calling `ray_tick` runs between 23..52% less commands depending on the ray type and distance traveled. This is because for each block check iteration:
+                * ~26% less commands are used when the ray targets full blocks (air)
+                * ~45% less commands are used when the ray targets non full blocks (trapdoors, slabs, bells, ...)
+                * ~47% less commands are used when the ray targets both blocks and entities
+    * Fixes
+        * Ray not being calculated properly when going through air corners
+        * Ray going moving towards negative x and/or y and/or y with long "motion" sometimes iterated forever (caused by impressions)
+        * Hanging roots, Lectern, Bamboo[leaves:large], Baners on wall not calc ok
+        * Missing sea pickle, composter
+* v2.7
+    * Updates
+        * Added support for 1.20
+    * Changes
+        * Default recursion limit is 256 (can be changed in the `ini.mcfunction` file)
+    * Fixes
+        * Fixed a bug where the ray would endlessly recurse, freezing the game. This would happen when the ray was passing through the corner of a block hitbox.
+* v2.7.1
+    * Updates
+        * Better entity hitbox hit precision
+
 </details>
